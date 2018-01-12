@@ -1,17 +1,13 @@
-<html>
-<head>
-    <title>Progetto Basi di Dati</title>
-</head>
-<body>
-<a href="autore">Autori</a><br>
-<a href="#">Inserisci Casa Editrice</a><br>
-<a href="#">Inserisci Collana</a><br>
-<a href="#">Inserisci Genere</a><br>
-<a href="#">Inserisci Libro</a><br>
-<a href="#">Inserisci Personale</a><br>
-<a href="#">Inserisci Utente</a><br>
+<?php require 'partials/head.php' ?>
+
+<a href="autore/index.php">Autori</a><br>
+<a href="#">Casa Editrice</a><br>
+<a href="#">Collana</a><br>
+<a href="#">Genere</a><br>
+<a href="#">Libro</a><br>
+<a href="#">Personale</a><br>
+<a href="#">Utente</a><br>
 
 <a href="#">Crea prestito</a><br>
 
-</body>
-</html>
+<?php require 'partials/footer.php' ?>

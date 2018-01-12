@@ -1,37 +1,50 @@
 <?php
 require "../ConnessioneSQL.php";
 $connessione = new ConnessioneSQL();
-$sql = "SELECT * FROM autori WHERE id =".$_GET["id"].";";
-$risultato = $connessione->query($sql);
+$sql = "SELECT * FROM autori WHERE id =" . $_GET["id"] . ";";
+$risultato = $connessione->query($sql)->fetch_assoc();
 
-if ($risultato->num_rows > 0) {
-    // output data of each row
-    $row = $risultato->fetch_assoc();
+if (is_null($risultato)) {
+    die("Record non trovato.");
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $connessione = new ConnessioneSQL();
-    $sql = "UPDATE autori SET cognome='".$_POST['cognome']."', nome='".$_POST['nome']."', data_nascita='".$_POST['data_nascita']."' WHERE id=".$_GET["id"].";";
-    $connessione->query($sql);
-    header("location: ./index.php");
+    $sql = "UPDATE autori SET cognome='" . $_POST['cognome'] . "', nome='" . $_POST['nome'] . "', data_nascita='" . $_POST['data_nascita'] . "' WHERE id=" . $_GET["id"] . ";";
+    if ($connessione->query($sql)) {
+        header("location: ./index.php");
+    } else {
+        $errore = "Si è verificato un errore.";
+    }
 }
 ?>
-<html>
-<head>
-    <title>Progetto Basi di Dati</title>
-</head>
-<body>
+
+<?php require '../partials/head.php' ?>
+
+<?php require '../partials/error.php' ?>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Modifica Autore</h3>
+    <a href="index.php" class="btn btn-link">Lista autori</a>
+</div>
+
 <form action="#" method="post">
-    <label>Cognome</label>
-    <input type="text" name="cognome" value="<?php echo $row["cognome"]?>">
-
-    <label>Nome</label>
-    <input type="text" name="nome" value="<?php echo $row["nome"]?>">
-
-    <label>Data di nascita</label>
-    <input type="date" name="data_nascita" value="<?php echo $row["data_nascita"]?>">
-    <button>Modifica</button>
+    <div class="form-group">
+        <label>Cognome</label>
+        <input class="form-control" type="text" name="cognome" required
+               value="<?php echo $risultato["cognome"] ?>">
+    </div>
+    <div class="form-group">
+        <label>Nome</label>
+        <input class="form-control" type="text" name="nome" required
+               value="<?php echo $risultato["nome"] ?>">
+    </div>
+    <div class="form-group">
+        <label>Data di nascita</label>
+        <input class="form-control" type="date" name="data_nascita" required
+               value="<?php echo $risultato["data_nascita"] ?>">
+    </div>
+    <button class="btn btn-primary">Modifica</button>
 </form>
 
-</body>
-</html>
+<?php require '../partials/footer.php' ?>

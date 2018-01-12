@@ -2,8 +2,12 @@
 require "../ConnessioneSQL.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $connessione = new ConnessioneSQL();
-    $sql = "INSERT INTO autori (cognome, nome, data_nascita) VALUES ('" . $_POST['cognome'] . "','" . $_POST['nome'] . "','" . $_POST['data_nascita'] . "');";
-    if ($connessione->query($sql)) {
+    $risultato = $connessione->insert('autori', [
+            'cognome' => $_POST['cognome'],
+            'nome' => $_POST['nome'],
+            'data_nascita' => $_POST['data_nascita'],
+    ]);
+    if ($risultato) {
         header("location: ./index.php");
     } else {
         $errore = " Si è verificato un'errore.";

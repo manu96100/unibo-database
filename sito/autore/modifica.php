@@ -10,8 +10,12 @@ if (is_null($risultato)) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $connessione = new ConnessioneSQL();
-    $sql = "UPDATE autori SET cognome='" . $_POST['cognome'] . "', nome='" . $_POST['nome'] . "', data_nascita='" . $_POST['data_nascita'] . "' WHERE id=" . $_GET["id"] . ";";
-    if ($connessione->query($sql)) {
+    $risultato = $connessione->update('autori', [
+        'cognome' => $_POST['cognome'],
+        'nome' => $_POST['nome'],
+        'data_nascita' => $_POST['data_nascita'],
+    ], ['id' => $_GET['id']]);
+    if ($risultato) {
         header("location: ./index.php");
     } else {
         $errore = "Si è verificato un errore.";

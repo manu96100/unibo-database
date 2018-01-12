@@ -18,11 +18,11 @@
         <?php
         require "../ConnessioneSQL.php";
         $connessione = new ConnessioneSQL();
-        $sql = "SELECT * FROM autori";
-        $risultato = $connessione->query($sql);
-        if ($risultato->num_rows > 0) {
+        $risultato = $connessione->select('autori');
+
+        if (count($risultato) > 0) {
             // output data of each row
-            while ($row = $risultato->fetch_assoc()) {
+            foreach ($risultato as $row) {
                 ?>
                 <tr>
                     <td><?php echo $row["cognome"] ?></td>

@@ -6,7 +6,7 @@
 <a href="genere/index.php">Generi</a><br>
 <a href="#">Libro</a><br>
 <a href="personale/index.php">Personale</a><br>
-<a href="#">Utente</a><br>
+<a href="utente/index.php">Utenti</a><br>
 
 <a href="#">Crea prestito</a><br>
 

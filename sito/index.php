@@ -3,7 +3,7 @@
 <a href="autore/index.php">Autori</a><br>
 <a href="casa-editrice/index.php">Case Editrici</a><br>
 <a href="collana/index.php">Collane</a><br>
-<a href="#">Genere</a><br>
+<a href="genere/index.php">Generi</a><br>
 <a href="#">Libro</a><br>
 <a href="#">Personale</a><br>
 <a href="#">Utente</a><br>

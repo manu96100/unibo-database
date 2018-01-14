@@ -10,11 +10,13 @@
     <tr>
         <th>ISBN</th>
         <th>Titolo</th>
+        <th>Anno Pubblicazione</th>
         <th>Quantità</th>
         <th>Collana</th>
         <th>Autore</th>
         <th>Genere</th>
         <th>Casa Editrice</th>
+        <th>Classificazione</th>
         <th></th>
     </tr>
     </thead>
@@ -22,7 +24,7 @@
     <?php
     require "../ConnessioneSQL.php";
     $connessione = new ConnessioneSQL();
-    $ris = $connessione->query("SELECT libri.id,ISBN,titolo,quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere
+    $ris = $connessione->query("SELECT libri.id,ISBN,titolo, anno_pubblicazione, quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere, id_classificazione
         FROM libri
 	      JOIN collane ON libri.id_collana=collane.id
           JOIN casa_editrice ON libri.id_editore=casa_editrice.id
@@ -53,11 +55,13 @@
             <tr>
                 <td><?php echo $row["ISBN"] ?></td>
                 <td><?php echo $row["titolo"] ?></td>
+                <td><?php echo $row["anno_pubblicazione"] ?></td>
                 <td><?php echo $row["quantita"] ?></td>
                 <td><?php echo $row["collana"] ?></td>
                 <td><?php foreach ($row["autore"] as $autore) echo $autore.(next($row["autore"])?", ":"") ?></td>
                 <td><?php foreach ($row["genere"] as $genere) echo $genere.(next($row["genere"])?", ":"") ?></td>
                 <td><?php echo $row["casa_editrice"] ?></td>
+                <td><?php echo $row["id_classificazione"] ?></td>
 
                 <td><a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a></td>
             </tr>

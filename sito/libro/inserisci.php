@@ -3,11 +3,13 @@ require "../ConnessioneSQL.php";
 $connessione = new ConnessioneSQL();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_libro = $connessione->insert('libri', [
-            'ISBN' => $_POST['ISBN'],
-            'titolo' => $_POST['titolo'],
-            'quantita' => $_POST['quantita'],
-            'id_editore' => $_POST['id_editore'],
-            'id_collana' => $_POST['id_collana']?:NULL,
+        'ISBN' => $_POST['ISBN'],
+        'titolo' => $_POST['titolo'],
+        'anno_pubblicazione' => $_POST['anno_pubblicazione'],
+        'quantita' => $_POST['quantita'],
+        'id_editore' => $_POST['id_editore'],
+        'id_collana' => $_POST['id_collana'] ?: NULL,
+        'id_classificazione' => $_POST['id_classificazione']
     ]);
 
     if ($id_libro) {
@@ -50,6 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-group">
         <label>Titolo</label>
         <input class="form-control" type="text" name="titolo">
+    </div>
+
+    <div class="form-group">
+        <label>Anno Pubblicazione</label>
+        <input class="form-control" type="text" name="anno_pubblicazione">
     </div>
 
     <div class="form-group">
@@ -98,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($autori as $row) {
                 ?>
                 <option value="<?php echo $row["id"] ?>">
-                    <?php echo $row["cognome"]." ".$row["nome"] ?>
+                    <?php echo $row["cognome"] . " " . $row["nome"] ?>
                 </option>
                 <?php
             }
@@ -120,6 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             ?>
         </select>
+    </div>
+
+    <div class="form-group">
+        <label>Classificazione</label>
+        <input class="form-control" type="text" name="id_classificazione">
     </div>
 
     <button class="btn btn-primary">Inserisci</button>

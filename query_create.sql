@@ -25,18 +25,29 @@ CREATE TABLE generi (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE classificazioni (
+  id   INT(3)      NOT NULL,
+  nome VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE libri (
-  id         INT          NOT NULL AUTO_INCREMENT,
-  ISBN       VARCHAR(13)  NOT NULL,
-  titolo     VARCHAR(100) NOT NULL,
-  quantita    INT          NOT NULL,
-  id_editore INT          NOT NULL,
-  id_collana INT          NULL     DEFAULT NULL,
+  id                 INT          NOT NULL AUTO_INCREMENT,
+  ISBN               VARCHAR(13)  NOT NULL,
+  titolo             VARCHAR(100) NOT NULL,
+  anno_pubblicazione YEAR         NOT NULL,
+  quantita           INT          NOT NULL,
+  id_editore         INT          NOT NULL,
+  id_collana         INT          NULL     DEFAULT NULL,
+  id_classificazione INT(3)       NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (id_editore) REFERENCES casa_editrice (id)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION,
   FOREIGN KEY (id_collana) REFERENCES collane (id)
+    ON DELETE RESTRICT
+    ON UPDATE NO ACTION,
+  FOREIGN KEY (id_classificazione) REFERENCES classificazioni (id)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION
 );

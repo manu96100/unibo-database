@@ -32,7 +32,6 @@ CREATE TABLE libri (
   quantita    INT          NOT NULL,
   id_editore INT          NOT NULL,
   id_collana INT          NULL     DEFAULT NULL,
-  cancellato BOOLEAN      NOT NULL DEFAULT FALSE,
   PRIMARY KEY (id),
   FOREIGN KEY (id_editore) REFERENCES casa_editrice (id)
     ON DELETE RESTRICT

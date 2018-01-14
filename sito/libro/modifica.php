@@ -1,7 +1,7 @@
 <?php
 require "../ConnessioneSQL.php";
 $connessione = new ConnessioneSQL();
-$record = $connessione->select('autori', '*', 'WHERE id=' . $_GET['id']);
+$record = $connessione->select('libri', '*', 'WHERE id=' . $_GET['id']);
 
 if (empty($record)) {
     die("Record non trovato.");
@@ -9,10 +9,9 @@ if (empty($record)) {
 $record = $record[0];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $risultato = $connessione->update('autori', [
-        'cognome' => $_POST['cognome'],
-        'nome' => $_POST['nome'],
-        'data_nascita' => $_POST['data_nascita'],
+    $risultato = $connessione->update('libri', [
+        'titolo' => $_POST['titolo'],
+        'quantita' => $_POST['quantita'],
     ], ['id' => $_GET['id']]);
     if ($risultato) {
         header("location: ./index.php");
@@ -27,25 +26,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php require '../partials/error.php' ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3>Modifica Autore</h3>
-    <a href="index.php" class="btn btn-link">Lista autori</a>
+    <h3>Modifica Libro</h3>
+    <a href="index.php" class="btn btn-link">Lista libri</a>
 </div>
 
 <form action="#" method="post">
     <div class="form-group">
-        <label>Cognome</label>
-        <input class="form-control" type="text" name="cognome" required
-               value="<?php echo $record["cognome"] ?>">
+        <label>Titolo</label>
+        <input class="form-control" type="text" name="titolo" required
+               value="<?php echo $record["titolo"] ?>">
     </div>
     <div class="form-group">
-        <label>Nome</label>
-        <input class="form-control" type="text" name="nome" required
-               value="<?php echo $record["nome"] ?>">
-    </div>
-    <div class="form-group">
-        <label>Data di nascita</label>
-        <input class="form-control" type="date" name="data_nascita" required
-               value="<?php echo $record["data_nascita"] ?>">
+        <label>Quantità</label>
+        <input class="form-control" type="text" name="quantita" required
+               value="<?php echo $record["quantita"] ?>">
     </div>
     <button class="btn btn-primary">Modifica</button>
 </form>

@@ -1,7 +1,7 @@
 <?php require '../partials/head.php' ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3>Autori</h3>
+    <h3>Libri</h3>
     <a href="inserisci.php" class="btn btn-primary">Inserisci</a>
 </div>
 
@@ -22,7 +22,7 @@
     <?php
     require "../ConnessioneSQL.php";
     $connessione = new ConnessioneSQL();
-    $ris = $connessione->query("SELECT ISBN,titolo,quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere
+    $ris = $connessione->query("SELECT libri.id,ISBN,titolo,quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere
         FROM libri
 	      JOIN collane ON libri.id_collana=collane.id
           JOIN casa_editrice ON libri.id_editore=casa_editrice.id

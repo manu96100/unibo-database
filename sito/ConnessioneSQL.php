@@ -39,21 +39,27 @@ class ConnessioneSQL
     public function insert($table, $values = [])
     {
         $keys = implode(',', array_keys($values));
-        $values = "'" . implode("','", $values) . "'";
 
-        return $this->query("INSERT INTO $table ($keys) VALUES ($values)");
+        $values = array_map(function ($value) {
+            return "'" . $this->conn->real_escape_string($value) . "'";
+        }, $values);
+
+        $values = implode(",", $values);
+
+        $results = $this->query("INSERT INTO $table ($keys) VALUES ($values)");
+        return $results ? $this->conn->insert_id : false;
     }
 
     public function update($table, $values = [], $where = [])
     {
         $values = array_map(function ($value, $key) {
-            return $key . "=" . "'" . $value . "'";
+            return $key . "=" . "'" . $this->conn->real_escape_string($value) . "'";
         }, $values, array_keys($values));
 
         $values = implode(',', $values);
 
         $where = array_map(function ($value, $key) {
-            return $key . "=" . "'" . $value . "'";
+            return $key . "=" . "'" . $this->conn->real_escape_string($value) . "'";
         }, $where, array_keys($where));
 
         $where = implode('and ', $where);

@@ -29,7 +29,7 @@ CREATE TABLE libri (
   id         INT          NOT NULL AUTO_INCREMENT,
   ISBN       VARCHAR(13)  NOT NULL,
   titolo     VARCHAR(100) NOT NULL,
-  quatita    INT          NOT NULL,
+  quantita    INT          NOT NULL,
   id_editore INT          NOT NULL,
   id_collana INT          NULL     DEFAULT NULL,
   cancellato BOOLEAN      NOT NULL DEFAULT FALSE,

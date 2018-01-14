@@ -7,39 +7,70 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Cognome</th>
-            <th>Nome</th>
-            <th>Data di nascita</th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>ISBN</th>
+        <th>Titolo</th>
+        <th>Quantità</th>
+        <th>Collana</th>
+        <th>Autore</th>
+        <th>Genere</th>
+        <th>Casa Editrice</th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        <?php
-        require "../ConnessioneSQL.php";
-        $connessione = new ConnessioneSQL();
-        $risultato = $connessione->select('autori');
-
-        if (count($risultato) > 0) {
-            // output data of each row
-            foreach ($risultato as $row) {
-                ?>
-                <tr>
-                    <td><?php echo $row["cognome"] ?></td>
-                    <td><?php echo $row["nome"] ?></td>
-                    <td><?php echo $row["data_nascita"] ?></td>
-                    <td><a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a></td>
-                </tr>
-                <?php
+    <?php
+    require "../ConnessioneSQL.php";
+    $connessione = new ConnessioneSQL();
+    $ris = $connessione->query("SELECT ISBN,titolo,quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere
+        FROM libri
+	      JOIN collane ON libri.id_collana=collane.id
+          JOIN casa_editrice ON libri.id_editore=casa_editrice.id
+          JOIN libri_autori ON libri.id=libri_autori.id_libro
+          JOIN autori ON libri_autori.id_autore=autori.id
+          JOIN libri_generi ON libri.id=libri_generi.id_libro
+          JOIN generi ON libri_generi.id_genere=generi.id")->fetch_all(MYSQLI_ASSOC);
+    $risultato=[];
+    foreach ($ris as $row) {
+        if (isset($risultato[$row["ISBN"]])) {
+            if (!in_array($row["autore"], $risultato[$row["ISBN"]]["autore"])) {
+                array_push($risultato[$row["ISBN"]]["autore"], $row["autore"]);
+            }
+            if (!in_array($row["genere"], $risultato[$row["ISBN"]]["genere"])) {
+                array_push($risultato[$row["ISBN"]]["genere"], $row["genere"]);
             }
         } else {
+            $risultato[$row["ISBN"]] = $row;
+            $risultato[$row["ISBN"]]["autore"] = [$row["autore"]];
+            $risultato[$row["ISBN"]]["genere"] = [$row["genere"]];
+        }
+    }
+
+    if (count($risultato) > 0) {
+        // output data of each row
+        foreach ($risultato as $row) {
             ?>
             <tr>
-                <td rowspan="4">Non ci sono record.</td>
+                <td><?php echo $row["ISBN"] ?></td>
+                <td><?php echo $row["titolo"] ?></td>
+                <td><?php echo $row["quantita"] ?></td>
+                <td><?php echo $row["collana"] ?></td>
+                <td><?php foreach ($row["autore"] as $autore) echo $autore.(next($row["autore"])?", ":"") ?></td>
+                <td><?php foreach ($row["genere"] as $genere) echo $genere.(next($row["genere"])?", ":"") ?></td>
+                <td><?php echo $row["casa_editrice"] ?></td>
+
+                <td><a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a></td>
             </tr>
             <?php
         }
+    } else {
         ?>
+        <tr>
+            <td rowspan="4">Non ci sono record.</td>
+        </tr>
+        <?php
+    }
+    ?>
     </tbody>
 </table>
 

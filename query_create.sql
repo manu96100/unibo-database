@@ -40,6 +40,7 @@ CREATE TABLE libri (
   id_editore         INT          NOT NULL,
   id_collana         INT          NULL     DEFAULT NULL,
   id_classificazione INT(3)       NOT NULL,
+  id_espositore          INT          NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (id_editore) REFERENCES casa_editrice (id)
     ON DELETE RESTRICT
@@ -48,6 +49,9 @@ CREATE TABLE libri (
     ON DELETE RESTRICT
     ON UPDATE NO ACTION,
   FOREIGN KEY (id_classificazione) REFERENCES classificazioni (id)
+    ON DELETE RESTRICT
+    ON UPDATE NO ACTION,
+  FOREIGN KEY (id_espositore) REFERENCES stanze (id)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION
 );
@@ -114,13 +118,19 @@ CREATE TABLE prestiti (
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE posizioni_libri (
-  id_libro   INT         NOT NULL,
-  stanza     VARCHAR(20) NOT NULL,
-  espositore VARCHAR(20) NOT NULL,
-  ripiano    VARCHAR(20) NOT NULL,
-  PRIMARY KEY (id_libro),
-  FOREIGN KEY (id_libro) REFERENCES libri (id)
+CREATE TABLE stanze (
+  id   INT         NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE espositori (
+  id        INT         NOT NULL AUTO_INCREMENT,
+  nome      VARCHAR(50) NOT NULL,
+  id_stanza INT         NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_stanza) REFERENCES stanze (id)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION
 );
+

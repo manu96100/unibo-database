@@ -24,7 +24,7 @@
     <?php
     require "../ConnessioneSQL.php";
     $connessione = new ConnessioneSQL();
-    $ris = $connessione->query("SELECT libri.id,ISBN,titolo, anno_pubblicazione, quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere, id_classificazione
+    $ris = $connessione->query("SELECT libri.id AS lib_id,ISBN,titolo, anno_pubblicazione, quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere, id_classificazione
         FROM libri
 	      JOIN collane ON libri.id_collana=collane.id
           JOIN casa_editrice ON libri.id_editore=casa_editrice.id
@@ -63,7 +63,7 @@
                 <td><?php echo $row["casa_editrice"] ?></td>
                 <td><?php echo $row["id_classificazione"] ?></td>
 
-                <td><a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a></td>
+                <td><a href="modifica.php?id=<?php echo $row["lib_id"] ?>">Modifica</a></td>
             </tr>
             <?php
         }

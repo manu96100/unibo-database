@@ -40,7 +40,7 @@ CREATE TABLE libri (
   id_editore         INT          NOT NULL,
   id_collana         INT          NULL     DEFAULT NULL,
   id_classificazione INT(3)       NOT NULL,
-  id_espositore          INT          NOT NULL,
+  id_espositore      INT          NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (id_editore) REFERENCES casa_editrice (id)
     ON DELETE RESTRICT
@@ -99,13 +99,13 @@ CREATE TABLE utenti (
 );
 
 CREATE TABLE prestiti (
-  id           INT      NOT NULL AUTO_INCREMENT,
-  id_libro     INT      NOT NULL,
-  id_personale INT      NOT NULL,
-  id_utente    INT      NOT NULL,
-  data_inizio  DATETIME NOT NULL,
-  data_fine    DATETIME NOT NULL,
-  restituito   BOOLEAN  NOT NULL DEFAULT FALSE,
+  id           INT     NOT NULL AUTO_INCREMENT,
+  id_libro     INT     NOT NULL,
+  id_personale INT     NOT NULL,
+  id_utente    INT     NOT NULL,
+  data_inizio  DATE    NOT NULL,
+  data_fine    DATE    NOT NULL,
+  restituito   BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (id),
   FOREIGN KEY (id_libro) REFERENCES libri (id)
     ON DELETE RESTRICT

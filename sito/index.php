@@ -10,6 +10,6 @@
 <a href="espositore/index.php">Espositore</a><br>
 <a href="utente/index.php">Utenti</a><br>
 
-<a href="#">Crea prestito</a><br>
+<a href="prestito/index.php">Crea prestito</a><br>
 
 <?php require 'partials/footer.php' ?>

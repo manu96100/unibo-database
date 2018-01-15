@@ -10,7 +10,7 @@
     <tr>
         <th>ISBN</th>
         <th>Titolo</th>
-        <th>Anno Pubblicazione</th>
+        <th>Anno</th>
         <th>Quantità</th>
         <th>Collana</th>
         <th>Autore</th>

@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'quantita' => $_POST['quantita'],
         'id_editore' => $_POST['id_editore'],
         'id_collana' => $_POST['id_collana'] ?: NULL,
-        'id_classificazione' => $_POST['id_classificazione']
+        'id_classificazione' => $_POST['id_classificazione'],
+        'id_espositore' => $_POST['id_espositore']
     ]);
 
     if ($id_libro) {
@@ -132,6 +133,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-group">
         <label>Classificazione</label>
         <input class="form-control" type="text" name="id_classificazione">
+    </div>
+
+    <div class="form-group">
+        <label>Stanza - Espositore</label>
+        <select class="form-control" name="id_espositore">
+            <?php
+            $espositori = $connessione->query("SELECT espositori.id AS esp_id, CONCAT(stanze.nome, ' - ', espositori.nome) AS espositore
+            FROM espositori JOIN stanze ON espositori.id_stanza=stanze.id");
+            foreach ($espositori as $row) {
+                ?>
+                <option value="<?php echo $row["esp_id"] ?>">
+                    <?php echo $row["espositore"] ?>
+                </option>
+                <?php
+            }
+            ?>
+        </select>
     </div>
 
     <button class="btn btn-primary">Inserisci</button>

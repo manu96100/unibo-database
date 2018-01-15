@@ -16,7 +16,9 @@
         <th>Autore</th>
         <th>Genere</th>
         <th>Casa Editrice</th>
-        <th>Classificazione</th>
+        <th>Classificazione di Dewey</th>
+        <th>Stanza</th>
+        <th>Espositore</th>
         <th></th>
     </tr>
     </thead>
@@ -24,14 +26,18 @@
     <?php
     require "../ConnessioneSQL.php";
     $connessione = new ConnessioneSQL();
-    $ris = $connessione->query("SELECT libri.id AS lib_id,ISBN,titolo, anno_pubblicazione, quantita, collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore, generi.nome AS genere, id_classificazione
+    $ris = $connessione->query("SELECT libri.id AS lib_id,ISBN,titolo, anno_pubblicazione, quantita,
+        collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore,
+        generi.nome AS genere, id_classificazione, stanze.nome AS stanza, espositori.nome AS espositore
         FROM libri
 	      JOIN collane ON libri.id_collana=collane.id
           JOIN casa_editrice ON libri.id_editore=casa_editrice.id
           JOIN libri_autori ON libri.id=libri_autori.id_libro
           JOIN autori ON libri_autori.id_autore=autori.id
           JOIN libri_generi ON libri.id=libri_generi.id_libro
-          JOIN generi ON libri_generi.id_genere=generi.id")->fetch_all(MYSQLI_ASSOC);
+          JOIN generi ON libri_generi.id_genere=generi.id
+          JOIN espositori ON espositori.id=libri.id_espositore
+          JOIN stanze ON stanze.id=espositori.id_stanza")->fetch_all(MYSQLI_ASSOC);
     $risultato=[];
     foreach ($ris as $row) {
         if (isset($risultato[$row["ISBN"]])) {
@@ -62,6 +68,8 @@
                 <td><?php foreach ($row["genere"] as $genere) echo $genere.(next($row["genere"])?", ":"") ?></td>
                 <td><?php echo $row["casa_editrice"] ?></td>
                 <td><?php echo $row["id_classificazione"] ?></td>
+                <td><?php echo $row["stanza"] ?></td>
+                <td><?php echo $row["espositore"] ?></td>
 
                 <td><a href="modifica.php?id=<?php echo $row["lib_id"] ?>">Modifica</a></td>
             </tr>

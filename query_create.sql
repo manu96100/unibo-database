@@ -31,6 +31,16 @@ CREATE TABLE stanze (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE espositori (
+  id        INT         NOT NULL AUTO_INCREMENT,
+  nome      VARCHAR(50) NOT NULL,
+  id_stanza INT         NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_stanza) REFERENCES stanze (id)
+    ON DELETE RESTRICT
+    ON UPDATE NO ACTION
+);
+
 CREATE TABLE libri (
   id                 INT          NOT NULL AUTO_INCREMENT,
   ISBN               VARCHAR(13)  NOT NULL,
@@ -113,14 +123,3 @@ CREATE TABLE prestiti (
     ON DELETE RESTRICT
     ON UPDATE NO ACTION
 );
-
-CREATE TABLE espositori (
-  id        INT         NOT NULL AUTO_INCREMENT,
-  nome      VARCHAR(50) NOT NULL,
-  id_stanza INT         NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (id_stanza) REFERENCES stanze (id)
-    ON DELETE RESTRICT
-    ON UPDATE NO ACTION
-);
-

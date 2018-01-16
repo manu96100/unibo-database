@@ -24,7 +24,10 @@
                 ?>
                 <tr>
                     <td><?php echo $row["nome"] ?></td>
-                    <td><a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a></td>
+                    <td>
+                        <a href="libri.php?id_genere=<?php echo $row["id"] ?>" class="mr-2">Libri</a>
+                        <a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a>
+                    </td>
                 </tr>
                 <?php
             }

@@ -25,6 +25,18 @@ CREATE TABLE generi (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE classificazioni (
+  id   INT(3)      NOT NULL,
+  nome VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE stanze (
+  id   INT         NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE libri (
   id                 INT          NOT NULL AUTO_INCREMENT,
   ISBN               VARCHAR(13)  NOT NULL,
@@ -106,12 +118,6 @@ CREATE TABLE prestiti (
   FOREIGN KEY (id_utente) REFERENCES utenti (id)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION
-);
-
-CREATE TABLE stanze (
-  id   INT         NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(50) NOT NULL,
-  PRIMARY KEY (id)
 );
 
 CREATE TABLE espositori (

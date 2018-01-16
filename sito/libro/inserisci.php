@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'quantita' => $_POST['quantita'],
         'id_editore' => $_POST['id_editore'],
         'id_collana' => $_POST['id_collana'] ?: NULL,
-        'id_classificazione' => $_POST['id_classificazione'],
         'id_espositore' => $_POST['id_espositore']
     ]);
 
@@ -128,11 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             ?>
         </select>
-    </div>
-
-    <div class="form-group">
-        <label>Classificazione</label>
-        <input class="form-control" type="text" name="id_classificazione">
     </div>
 
     <div class="form-group">

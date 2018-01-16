@@ -16,7 +16,6 @@
         <th>Autore</th>
         <th>Genere</th>
         <th>Casa Editrice</th>
-        <th>Classificazione di Dewey</th>
         <th>Stanza</th>
         <th>Espositore</th>
         <th></th>
@@ -28,7 +27,7 @@
     $connessione = new ConnessioneSQL();
     $ris = $connessione->query("SELECT libri.id AS lib_id,ISBN,titolo, anno_pubblicazione, quantita,
         collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore,
-        generi.nome AS genere, id_classificazione, stanze.nome AS stanza, espositori.nome AS espositore
+        generi.nome AS genere, stanze.nome AS stanza, espositori.nome AS espositore
         FROM libri
 	      JOIN collane ON libri.id_collana=collane.id
           JOIN casa_editrice ON libri.id_editore=casa_editrice.id
@@ -67,7 +66,6 @@
                 <td><?php foreach ($row["autore"] as $autore) echo $autore.(next($row["autore"])?", ":"") ?></td>
                 <td><?php foreach ($row["genere"] as $genere) echo $genere.(next($row["genere"])?", ":"") ?></td>
                 <td><?php echo $row["casa_editrice"] ?></td>
-                <td><?php echo $row["id_classificazione"] ?></td>
                 <td><?php echo $row["stanza"] ?></td>
                 <td><?php echo $row["espositore"] ?></td>
 

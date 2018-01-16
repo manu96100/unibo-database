@@ -3,13 +3,12 @@
 <?php
 require "../ConnessioneSQL.php";
 $connessione = new ConnessioneSQL();
-$id_genere = isset($_GET['id_genere']) && strlen($_GET['id_genere']) > 0 ? $_GET['id_genere'] : die("Richiesto id autore");
+$id_genere = isset($_GET['id_genere']) && strlen($_GET['id_genere']) > 0 ? $_GET['id_genere'] : die("Richiesto id genere");
 $genere = $connessione->select('generi', '*', "WHERE id=$id_genere")[0];
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3>Libri <?php echo $genere['nome'] ?></h3>
-    <a href="inserisci.php" class="btn btn-primary">Inserisci</a>
 </div>
 
 <table class="table">

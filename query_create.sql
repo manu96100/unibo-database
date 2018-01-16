@@ -47,7 +47,7 @@ CREATE TABLE libri (
   FOREIGN KEY (id_collana) REFERENCES collane (id)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION,
-  FOREIGN KEY (id_espositore) REFERENCES stanze (id)
+  FOREIGN KEY (id_espositore) REFERENCES espositori (id)
     ON DELETE RESTRICT
     ON UPDATE NO ACTION
 );

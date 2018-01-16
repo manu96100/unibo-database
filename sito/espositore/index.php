@@ -8,6 +8,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th>Id</th>
         <th>Nome</th>
         <th>Stanza</th>
         <th></th>
@@ -26,6 +27,7 @@
         foreach ($risultato as $row) {
             ?>
             <tr>
+                <td><?php echo $row["esp_id"] ?></td>
                 <td><?php echo $row["espositore"] ?></td>
                 <td><?php echo $row["stanza"] ?></td>
 

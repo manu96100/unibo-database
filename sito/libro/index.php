@@ -5,9 +5,16 @@
     <a href="inserisci.php" class="btn btn-primary">Inserisci</a>
 </div>
 
+<form action="#" method="get" class="form-inline">
+    <label class="mr-2">Cerca libro:</label>
+    <input type="text" class="form-control mr-2" placeholder="Titolo" name="titolo">
+    <button class="btn btn-primary">Cerca</button>
+</form>
+
 <table class="table">
     <thead>
     <tr>
+        <th>Id</th>
         <th>ISBN</th>
         <th>Titolo</th>
         <th>Anno</th>
@@ -25,7 +32,7 @@
     <?php
     require "../ConnessioneSQL.php";
     $connessione = new ConnessioneSQL();
-    $ris = $connessione->query("SELECT libri.id AS lib_id,ISBN,titolo, anno_pubblicazione, quantita,
+    $sql = "SELECT libri.id AS lib_id,ISBN,titolo, anno_pubblicazione, quantita,
         collane.nome AS collana, casa_editrice.nome AS casa_editrice, CONCAT(autori.cognome, ' ', autori.nome) AS autore,
         generi.nome AS genere, stanze.nome AS stanza, espositori.nome AS espositore
         FROM libri
@@ -36,8 +43,14 @@
           JOIN libri_generi ON libri.id=libri_generi.id_libro
           JOIN generi ON libri_generi.id_genere=generi.id
           JOIN espositori ON espositori.id=libri.id_espositore
-          JOIN stanze ON stanze.id=espositori.id_stanza")->fetch_all(MYSQLI_ASSOC);
-    $risultato=[];
+          JOIN stanze ON stanze.id=espositori.id_stanza";
+
+    if (isset($_GET['titolo']) && strlen($_GET['titolo']) > 0) {
+        $sql .= " AND libri.titolo like '%" . $_GET['titolo'] . "%'";
+    }
+
+    $ris = $connessione->query($sql)->fetch_all(MYSQLI_ASSOC);
+    $risultato = [];
     foreach ($ris as $row) {
         if (isset($risultato[$row["ISBN"]])) {
             if (!in_array($row["autore"], $risultato[$row["ISBN"]]["autore"])) {
@@ -58,13 +71,14 @@
         foreach ($risultato as $row) {
             ?>
             <tr>
+                <td><?php echo $row["lib_id"] ?></td>
                 <td><?php echo $row["ISBN"] ?></td>
                 <td><?php echo $row["titolo"] ?></td>
                 <td><?php echo $row["anno_pubblicazione"] ?></td>
                 <td><?php echo $row["quantita"] ?></td>
                 <td><?php echo $row["collana"] ?></td>
-                <td><?php foreach ($row["autore"] as $autore) echo $autore.(next($row["autore"])?", ":"") ?></td>
-                <td><?php foreach ($row["genere"] as $genere) echo $genere.(next($row["genere"])?", ":"") ?></td>
+                <td><?php foreach ($row["autore"] as $autore) echo $autore . (next($row["autore"]) ? ", " : "") ?></td>
+                <td><?php foreach ($row["genere"] as $genere) echo $genere . (next($row["genere"]) ? ", " : "") ?></td>
                 <td><?php echo $row["casa_editrice"] ?></td>
                 <td><?php echo $row["stanza"] ?></td>
                 <td><?php echo $row["espositore"] ?></td>

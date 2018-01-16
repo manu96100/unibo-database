@@ -9,7 +9,6 @@ $autore = $connessione->select('autori', '*', "WHERE id=$id_autore")[0];
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3>Libri di <?php echo $autore['nome'] . ' ' . $autore['cognome'] ?></h3>
-    <a href="inserisci.php" class="btn btn-primary">Inserisci</a>
 </div>
 
 <table class="table">

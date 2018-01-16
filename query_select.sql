@@ -13,7 +13,7 @@ FROM prestiti
   JOIN personale ON personale.id = prestiti.id_personale
 WHERE prestiti.id_utente = 1;
 
-#Ricerca per autore
+#Ricerca libri per autore
 SELECT
   libri.id           AS lib_id,
   ISBN,
@@ -35,7 +35,7 @@ FROM libri
   JOIN stanze ON stanze.id = espositori.id_stanza
 WHERE libri_autori.id_autore = 1;
 
-#Ricerca per genere
+#Ricerca libri per genere
 SELECT
   libri.id                                 AS lib_id,
   ISBN,
@@ -76,7 +76,7 @@ FROM prestiti
   JOIN libri ON prestiti.id_libro = libri.id
   JOIN utenti ON prestiti.id_utente = utenti.id
   JOIN personale ON prestiti.id_personale = personale.id
-WHERE data_inizio >= '2018-01-01' AND data_fine <= '2018-02-30';
+WHERE data_inizio >= '2018-01-01' AND data_inizio <= '2018-02-30';
 
 #Libri prestati da un determinato utente del personale
 SELECT titolo, CONCAT(utenti.cognome, ' ', utenti.nome) AS utente, data_inizio, data_fine, restituito

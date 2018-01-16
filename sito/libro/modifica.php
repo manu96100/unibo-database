@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $risultato = $connessione->update('libri', [
         'titolo' => $_POST['titolo'],
         'quantita' => $_POST['quantita'],
+        'id_espositore' => $_POST['id_espositore'],
     ], ['id' => $_GET['id']]);
     if ($risultato) {
         header("location: ./index.php");
@@ -40,6 +41,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Quantità</label>
         <input class="form-control" type="text" name="quantita" required
                value="<?php echo $record["quantita"] ?>">
+    </div>
+    <div class="form-group">
+        <label>Espositore</label>
+        <select class="form-control" name="id_espositore">
+            <?php
+            $espositori = $connessione->select('espositori');
+            foreach ($espositori as $row) {
+                ?>
+                <option value="<?php echo $row["id"] ?>">
+                    <?php echo 'Espositore '.$row["nome"] ?>
+                    <?php echo 'Stanza '.$row["id_stanza"] ?>
+                </option>
+                <?php
+            }
+            ?>
+        </select>
     </div>
     <button class="btn btn-primary">Modifica</button>
 </form>

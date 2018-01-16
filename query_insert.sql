@@ -51,8 +51,8 @@ INSERT INTO libri_autori (id_libro, id_autore) VALUES (4, 2);
 INSERT INTO libri_generi (id_libro, id_genere) VALUES (4, 1);
 
 INSERT INTO prestiti (id, id_libro, id_personale, id_utente, data_inizio, data_fine)
-VALUES (1, 1, 2, 1, 2018 - 01 - 16, 2018 - 02 - 15);
+VALUES (1, 1, 2, 1, '2018-01-16', '2018-02-15');
 INSERT INTO prestiti (id, id_libro, id_personale, id_utente, data_inizio, data_fine)
-VALUES (2, 2, 2, 1, 2018 - 01 - 16, 2018 - 02 - 15);
+VALUES (2, 2, 2, 1, '2018-01-16', '2018-02-15');
 INSERT INTO prestiti (id, id_libro, id_personale, id_utente, data_inizio, data_fine)
-VALUES (3, 4, 1, 2, 2018 - 01 - 14, 2018 - 02 - 13);
+VALUES (3, 4, 1, 2, '2018-01-14', '2018-02-13');

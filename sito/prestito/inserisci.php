@@ -3,14 +3,20 @@ require "../ConnessioneSQL.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $connessione = new ConnessioneSQL();
 
-    $risultato = $connessione->query("INSERT INTO prestiti (id_libro,id_utente,id_personale,data_inizio,data_fine)
-    VALUES ('".$_POST['id_libro']."','".$_POST['id_utente']."','".$_POST['id_personale']."',
+    $prestiti = $connessione->query("SELECT COUNT(*) AS count FROM prestiti WHERE id_utente=" . $_POST['id_utente'])->fetch_assoc()['count'];
+
+    if ($prestiti < 3) {
+        $risultato = $connessione->query("INSERT INTO prestiti (id_libro,id_utente,id_personale,data_inizio,data_fine)
+    VALUES ('" . $_POST['id_libro'] . "','" . $_POST['id_utente'] . "','" . $_POST['id_personale'] . "',
     CURRENT_DATE,DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY))");
 
-    if ($risultato) {
-        header("location: ./index.php");
+        if ($risultato) {
+            header("location: ./index.php");
+        } else {
+            $errore = " Si è verificato un'errore.";
+        }
     } else {
-        $errore = " Si è verificato un'errore.";
+        $errore = "Sono già attivi 3 prestiti";
     }
 }
 ?>

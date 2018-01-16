@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="form-group">
-        <label>Autore</label>
+        <label>Autore (Premere Ctrl per selezione multipla)</label>
         <select multiple class="form-control" name="id_autore[]">
             <?php
             $autori = $connessione->select('autori');
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="form-group">
-        <label>Genere</label>
+        <label>Genere (Premere Ctrl per selezione multipla)</label>
         <select multiple class="form-control" name="id_genere[]">
             <?php
             $generi = $connessione->select('generi');

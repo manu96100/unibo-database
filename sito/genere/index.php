@@ -8,6 +8,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Id</th> 
             <th>Nome</th>
             <th></th>
         </tr>
@@ -23,6 +24,7 @@
             foreach ($risultato as $row) {
                 ?>
                 <tr>
+                    <td><?php echo $row["id"] ?></td>
                     <td><?php echo $row["nome"] ?></td>
                     <td>
                         <a href="libri.php?id_genere=<?php echo $row["id"] ?>" class="mr-2">Libri</a>

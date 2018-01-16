@@ -8,6 +8,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Cognome</th>
             <th>Nome</th>
             <th>Data di nascita</th>
@@ -25,6 +26,7 @@
             foreach ($risultato as $row) {
                 ?>
                 <tr>
+                <td><?php echo $row["id"] ?></td>
                     <td><?php echo $row["cognome"] ?></td>
                     <td><?php echo $row["nome"] ?></td>
                     <td><?php echo $row["data_nascita"] ?></td>

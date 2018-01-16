@@ -8,6 +8,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th>Id</th>
         <th>ISBN</th>
         <th>Titolo</th>
         <th>Anno</th>
@@ -58,6 +59,7 @@
         foreach ($risultato as $row) {
             ?>
             <tr>
+                <td><?php echo $row["lib_id"] ?></td>
                 <td><?php echo $row["ISBN"] ?></td>
                 <td><?php echo $row["titolo"] ?></td>
                 <td><?php echo $row["anno_pubblicazione"] ?></td>

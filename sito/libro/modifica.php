@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $risultato = $connessione->update('libri', [
         'titolo' => $_POST['titolo'],
         'quantita' => $_POST['quantita'],
+        
     ], ['id' => $_GET['id']]);
     if ($risultato) {
         header("location: ./index.php");

@@ -28,7 +28,10 @@
                     <td><?php echo $row["cognome"] ?></td>
                     <td><?php echo $row["nome"] ?></td>
                     <td><?php echo $row["data_nascita"] ?></td>
-                    <td><a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a></td>
+                    <td>
+                        <a href="libri.php?id_autore=<?php echo $row["id"] ?>" class="mr-2">Libri</a>
+                        <a href="modifica.php?id=<?php echo $row["id"] ?>">Modifica</a>
+                    </td>
                 </tr>
                 <?php
             }
